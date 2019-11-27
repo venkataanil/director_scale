@@ -1,0 +1,7 @@
+git clone https://github.com/redhat-openstack/infrared.git
+cd infrared
+virtualenv .venv && source .venv/bin/activate
+pip install --upgrade pip
+pip install --upgrade setuptools
+pip install .
+infrared plugin add all

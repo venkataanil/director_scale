@@ -1,0 +1,3 @@
+sudo yum install git gcc libffi-devel openssl-devel python-virtualenv libselinux-python tmux qemu-kvm libvirt libvirt-python libguestfs-tools virt-install libguestfs libguestfs-tools-c libguestfs-tools-xfs python-lxml wget libselinux-python expect -y
+systemctl enable libvirtd
+systemctl start libvirtd

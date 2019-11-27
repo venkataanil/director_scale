@@ -1,0 +1,15 @@
+{
+   "nodes": [
+     {  "name": "controller-0",
+        "pm_addr": "mgmt-f05-h30-000-1029p.rdu2.scalelab.redhat.com",
+        "mac": ["ac:1f:6b:2d:1b:21"],
+        "arch": "x86_64",
+         "pm_type": "pxe_ipmitool",
+        "pm_user": "quads",
+        "pm_password": "498671",
+        "cpu": "2",
+        "memory": "4096",
+        "disk": "40"
+     }
+  ]
+}

@@ -1,0 +1,12 @@
+(.venv) [root@f05-h26-000-1029p infrared]# brctl show
+bridge name	bridge id		STP enabled	interfaces
+data		8000.ac1f6b2d19e4	no		enp94s0f0
+							vnet0
+							vnet3
+isolated		8000.ac1f6b2d19e7	no		enp94s0f3
+							vnet1
+							vnet4
+management		8000.525400cf6178	yes		management-nic
+							vnet2
+							vnet5
+virbr0		8000.525400c6fb27	yes		virbr0-nic

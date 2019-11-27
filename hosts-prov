@@ -1,0 +1,47 @@
+
+undercloud  ansible_host=f05-h29-000-1029p.rdu2.scalelab.redhat.com ansible_connection=ssh ansible_user=stack ansible_ssh_private_key_file=/root/.ssh/id_rsa ansible_python_interpreter='/usr/bin/python'
+compute-0  ansible_host=NA ansible_connection=ssh ansible_user=root ansible_ssh_private_key_file=/root/.infrared/.workspaces/workspace_2019-11-26_10-08-30/id_rsa ansible_ssh_common_args=' -o BatchMode=yes -o ForwardAgent=yes -o ServerAliveInterval=30 -o ControlMaster=auto -o ControlPersist=30m -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -W %h:%p -i /root/.ssh/id_rsa root@10.1.41.194"'
+compute-1  ansible_host=NA ansible_connection=ssh ansible_user=root ansible_ssh_private_key_file=/root/.infrared/.workspaces/workspace_2019-11-26_10-08-30/id_rsa ansible_ssh_common_args=' -o BatchMode=yes -o ForwardAgent=yes -o ServerAliveInterval=30 -o ControlMaster=auto -o ControlPersist=30m -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -W %h:%p -i /root/.ssh/id_rsa root@10.1.41.134"'
+controller-0  ansible_connection=ssh ansible_user=root
+hypervisor-0  ansible_host=10.1.41.194 ansible_connection=ssh ansible_user=root ansible_ssh_private_key_file=/root/.ssh/id_rsa
+hypervisor-1  ansible_host=10.1.41.134 ansible_connection=ssh ansible_user=root ansible_ssh_private_key_file=/root/.ssh/id_rsa
+localhost ansible_connection=local ansible_python_interpreter=python
+
+[overcloud_nodes]
+compute-0
+compute-1
+controller-0
+
+[baremetal]
+undercloud
+
+[compute]
+compute-0
+compute-1
+
+[tester]
+undercloud
+
+[vbmc_host]
+undercloud
+
+[openstack_nodes]
+compute-0
+compute-1
+controller-0
+
+[undercloud]
+undercloud
+
+[controller]
+controller-0
+
+[shade]
+undercloud
+
+[hypervisor]
+hypervisor-0
+hypervisor-1
+
+[local]
+localhost
