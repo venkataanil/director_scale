@@ -1,0 +1,545 @@
+    1  1574518238 ./clean-interfaces.sh --nuke
+    2  1574518300 sudo yum install git gcc libffi-devel openssl-devel python-virtualenv libselinux-python tmux qemu-kvm libvirt libvirt-python libguestfs-tools virt-install libguestfs libguestfs-tools-c libguestfs-tools-xfs python-lxml wget libselinux-python expect -y
+    3  1574518331 systemctl enable libvirtd
+    4  1574518333 systemctl start libvirtd
+    5  1574518371 ssh-keygen
+    6  1574518394 vi ~/.ssh/id_rsa.pub 
+    7  1574518418 vi ~/.ssh/authorized_keys 
+    8  1574518453 git clone https://github.com/redhat-openstack/infrared.git
+    9  1574518455 cd infrared
+   10  1574518455 virtualenv .venv && source .venv/bin/activate
+   11  1574518456 pip install --upgrade pip
+   12  1574518458 pip install --upgrade setuptools
+   13  1574518459 pip install .
+   14  1574518494 infrared plugin add plugins/virsh
+   15  1574518514 tmux new -s osp
+   16  1574518542 deactivate 
+   17  1574518546 tmux new -s osp
+   18  1574518553 tmux ls
+   19  1574518556 tmux a
+   20  1574521377 ip a
+   21  1574521444 virsh net-list
+   22  1574521462 ls /root/.infrared/.workspaces/
+   23  1574521476 ls -al /root/.infrared/.workspaces/workspace_2019-11-23_14-43-40
+   24  1574521484 ls -al /root/.infrared/.workspaces/active/
+   25  1574521486 ls -al /root/.infrared/.workspaces/active
+   26  1574521534 vi /root/.infrared/.workspaces/active/hosts
+   27  1574521622 cd infrared/
+   28  1574521625 vi log_virsh1 
+   29  1574521709 ssh root@172.16.0.94
+   30  1574521740 ssh -i /root/.infrared/.workspaces/active/id_rsa root@172.16.0.94
+   31  1574521764 vi log_virsh1 
+   32  1574521795 diff /root/.infrared/.workspaces/active/id_rsa ~/.ssh/id_rsa
+   33  1574521886 rm -rf /root/.infrared/.workspaces
+   34  1574522085 brctl show
+   35  1574522186 diff ~/.ssh/id_rsa ~/.infrared/.workspaces/active/id_rsa
+   36  1574522202 cp ~/.ssh/id_rsa* ~/.infrared/.workspaces/active/id_rsa
+   37  1574522215 cp ~/.ssh/id_rsa ~/.infrared/.workspaces/active/id_rsa
+   38  1574522237 cp ~/.ssh/id_rsa.pub ~/.infrared/.workspaces/active/id_rsa.pub 
+   39  1574522715 brctl show
+   40  1574522751 for i in data isolated; do brctl delbr $i; done
+   41  1574522767 for i in data isolated; do ip l s $i down && brctl delbr $i; done
+   42  1574522808 rm -rf ~/.infrared/.workspaces
+   43  1574522823 cd /var/lib/libvirt/images/
+   44  1574522824 ls
+   45  1574522828 rm -f *
+   46  1574657463 ip a
+   47  1574657555 scp -r ~/.ssh/* root@10.1.41.134:~/.ssh
+   48  1574657938 cd infrared/
+   49  1574657941 rm -f log_virsh1
+   50  1574658260 virsh list
+   51  1574659953 brctl show
+   52  1574669715 sudo tcpdump -vvv -n -e -i enp94s0f0
+   53  1574669770 find -name virt_4nets_multi_hypervisor.yml
+   54  1574669772 find -name virt_4nets_multi_hypervisor.yaml
+   55  1574669784 find -name "*mutl_hy*"
+   56  1574669786 pwd
+   57  1574669790 find -name virt
+   58  1574669796 ls ./plugins/tripleo-overcloud/vars/deployment/files/
+   59  1574669893 #git fetch "https://review.gerrithub.io/redhat-openstack/infrared" refs/changes/83/461583/3 && git checkout FETCH_HEAD
+   60  1574669895 git status
+   61  1574669909 cp plugins/virsh/defaults/topology/network/4_nets_multi_hypervisor.yml ~/
+   62  1574669913 git checkout plugins/virsh/defaults/topology/network/4_nets_multi_hypervisor.yml
+   63  1574669918 git fetch "https://review.gerrithub.io/redhat-openstack/infrared" refs/changes/83/461583/3 && git checkout FETCH_HEAD
+   64  1574669948 git checkout -b multi-hypervisor
+   65  1574669956 git rebase -i master
+   66  1574670099 git status
+   67  1574670348 git diff plugins/tripleo-overcloud/tasks/add_overcloud_host.yml > out
+   68  1574670350 vim out
+   69  1574670357 yum install vim -y
+   70  1574670363 vim out
+   71  1574670416 git status
+   72  1574670489 cp plugins/tripleo-overcloud/tasks/add_overcloud_host.yml ~/
+   73  1574670496 git checkout plugins/tripleo-overcloud/tasks/add_overcloud_host.yml
+   74  1574670519 cp ~/.infrared/plugins/tripleo-overcloud/tasks/add_overcloud_host.yml plugins/tripleo-overcloud/tasks/add_overcloud_host.yml
+   75  1574670528 vim plugins/tripleo-overcloud/tasks/add_overcloud_host.yml 
+   76  1574670678 git diff plugins/tripleo-overcloud/tasks/add_overcloud_host.yml > out
+   77  1574670680 vim out
+   78  1574670696 git add plugins/tripleo-overcloud/tasks/add_overcloud_host.yml
+   79  1574670699 git status
+   80  1574670705 git rebase --continue
+   81  1574670727 git status
+   82  1574670752 cd ~/.infrared/plugins/
+   83  1574670758 rm -rf tripleo-overcloud
+   84  1574670768 cp -r ~/infrared/plugins/tripleo-overcloud .
+   85  1574670773 ls tripleo-overcloud/
+   86  1574670776 cd -
+   87  1574670790 cd ~/infrared/
+   88  1574670795 find -name virt_4nets_multi_hypervisor.yml
+   89  1574670797 find -name virt_4nets_multi_hypervisor.yaml
+   90  1574670802 pwd
+   91  1574670810 find -name virt
+   92  1574670816 ls ./plugins/tripleo-overcloud/vars/deployment/files/
+   93  1574670824 ls ./plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/
+   94  1574670827 ls ./plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/
+   95  1574670835 ls ./plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/three-nics-vlans/
+   96  1574670846 cd ./plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/three-nics-vlans/
+   97  1574670847 ls
+   98  1574670850 vi controller.yaml.j2 
+   99  1574671080 vi compute.yaml.j2 
+  100  1574671104 cd ..
+  101  1574671107 vi network-environment.yaml.j2 
+  102  1574671228 pwd
+  103  1574671237 cd /root/infrared/plugins/tripleo-overcloud
+  104  1574671238 git status
+  105  1574671241 cd ..
+  106  1574671245 git status
+  107  1574671256 cp tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/network-environment.yaml.j2 ~/.infrared/plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/network-environment.yaml.j2
+  108  1574671267 cp tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/three-nics-vlans/compute.yaml.j2 ~/.infrared/plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/three-nics-vlans/compute.yaml.j2
+  109  1574671280 cp tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/three-nics-vlans/controller.yaml.j2 ~/.infrared/plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/three-nics-vlans/controller.yaml.j2
+  110  1574671330 sudo tcpdump -vvv -n -e -i enp94s0f0
+  111  1574672334 cd 
+  112  1574672336 cd infrared/
+  113  1574672341 vim log_virsh1
+  114  1574672366 vim log_oc1 
+  115  1574672850 sudo tcpdump -vvv -n -e -i enp94s0f0
+  116  1574678866 ssh heat-admin@192.168.24.8 
+  117  1574672436 ip a
+  118  1574672457 ip -4 -o addr list data | awk '{print $4}'
+  119  1574672550 sudo ip a a 192.168.24.254/24 brd 192.168.24.255 dev data
+  120  1574672552 ip a
+  121  1574672554 ip -4 -o addr list data | awk '{print $4}'
+  122  1574672559 ip r
+  123  1574672788 brctl show
+  124  1574672938 systemctl status vbmc
+  125  1574672943 systemctl status vbmcd
+  126  1574677939 cd infrared/
+  127  1574677947 source .venv/bin/activate
+  128  1574677950 ir ssh undercloud-0
+  129  1574657178 tmux a
+  130  1574671532 cd infrared/
+  131  1574671536 tail -f log_oc1 
+  132  1574671618 grep -inr "allow access to port vbmc ports from undercloud external network" .
+  133  1574671624 vim ./infrared/common/roles/vbmc/tasks/iptables.yml
+  134  1574671944 git diff ./infrared/common/roles/vbmc/tasks/iptables.yml > out
+  135  1574671946 vim out
+  136  1574671973 cp ./infrared/common/roles/vbmc/tasks/iptables.yml ./.venv/lib/python2.7/site-packages/infrared/common/roles/vbmc/tasks/iptables.yml
+  137  1574671982 rm -f log_oc1
+  138  1574672025 tail -f log_oc1 
+  139  1574672174 grep -inr "The provision network cannot be discovered"
+  140  1574672181 vim plugins/tripleo-overcloud/hypervisor.yml
+  141  1574672615 git status
+  142  1574672621 git diff infrared/common/roles/vbmc/tasks/iptables.yml
+  143  1574672831 git status
+  144  1574672864 tail -f log_oc1 
+  145  1574673442 git status
+  146  1574679897 pwd
+  147  1574679899 ls
+  148  1574681177 ip a
+  149  1574681313 source .venv/bin/activate
+  150  1574681318 ir ssh undercloud-0
+  151  1574683393 ip a
+  152  1574683482 brctl show
+  153  1574683490 sudo ovs-vsctl show
+  154  1574685101 git status
+  155  1574685134 ls
+  156  1574685142 find -name files
+  157  1574685154 find -name default
+  158  1574685162 ls ./plugins/virsh/files/
+  159  1574685173 find -name "*hypervi*"
+  160  1574685180 vi ./plugins/virsh/defaults/topology/network/4_nets_multi_hypervisor.yml
+  161  1574685222 vim -d ./plugins/virsh/defaults/topology/network/4_nets_multi_hypervisor.yml ~/.infrared/plugins/virsh/defaults/topology/network/4_nets_multi_hypervisor.yml 
+  162  1574685272 scp ~/.infrared/plugins/virsh/defaults/topology/network/4_nets_multi_hypervisor.yml vkommadi@10.67.116.145:~/nic-configs/
+  163  1574671392 cd infrared/
+  164  1574671393 source .venv/bin/activate
+  165  1574671400 ir ssh undercloud-0
+  166  1574671359 cd infrared/
+  167  1574671363 source .venv/bin/activate
+  168  1574671363 ls
+  169  1574671372 ir ssh undercloud-0
+  170  1574518525 infrared plugin add all
+  171  1574518608 find -name 4_nets_multihypervisor
+  172  1574518611 find -name 4_nets_multihypervisor.yml
+  173  1574518613 find -name 4_nets_multihypervisor.yaml
+  174  1574518625 find -name "*mutlihyper*"
+  175  1574518641 find -name files
+  176  1574518654 ls ./plugins/virsh/files/
+  177  1574518708 find -name "*4_nets_multi_hypervisor""
+  178  1574518714 find -name "*4_nets_multi_hypervisor*"
+  179  1574518724 vi ./plugins/virsh/defaults/topology/network/4_nets_multi_hypervisor.yml
+  180  1574519991 ip a
+  181  1574520008 vi ./plugins/virsh/defaults/topology/network/4_nets_multi_hypervisor.yml
+  182  1574520219 ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes undercloud:1,controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  -v 2>&1 | tee log_virsh1
+  183  1574520252 vi ~/.ssh/authorized_keys 
+  184  1574520275 ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes undercloud:1,controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  -v 2>&1 | tee log_virsh1
+  185  1574520531 git status
+  186  1574520563 cp plugins/virsh/defaults/topology/network/4_nets_multi_hypervisor.yml ~/.infrared/plugins/virsh/defaults/topology/network/4_nets_multi_hypervisor.yml
+  187  1574520571 #ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes undercloud:1,controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  -v 2>&1 | tee log_virsh1 
+  188  1574520576 rm -f log_virsh1
+  189  1574520578 ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes undercloud:1,controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  -v 2>&1 | tee log_virsh1 
+  190  1574520623 touch /etc/sysconfig/network-scripts/ifcfg-enp94s0f3
+  191  1574520627 touch /etc/sysconfig/network-scripts/ifcfg-enp94s0f0
+  192  1574520647 virsh net-list
+  193  1574520651 brctl show
+  194  1574520693 rm -f log_virsh1
+  195  1574520698 ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes undercloud:1,controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  -v 2>&1 | tee log_virsh1 
+  196  1574521816 ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes undercloud:1,controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True --cleanup yes -v 2>&1 | tee log_virsh1 
+  197  1574521894 rm -f log_virsh1 
+  198  1574521897 ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes undercloud:1,controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  -v 2>&1 | tee log_virsh1 
+  199  1574522244 ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes undercloud:1,controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True --cleanup yes -v 2>&1 | tee log_virsh2
+  200  1574522284 ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes undercloud:1,controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True --cleanup yes -v 2>&1 | tee log_virsh1 
+  201  1574522328 rm -f log_virsh1
+  202  1574522339 ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes undercloud:1,controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  -v 2>&1 | tee log_virsh1 
+  203  1574522672 ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes undercloud:1,controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True --cleanup yes -v 2>&1 | tee log_virsh1 
+  204  1574522845 rm -f log_virsh1
+  205  1574522851 ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes undercloud:1,controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  -v 2>&1 | tee log_virsh1 
+  206  1574657583 ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes undercloud:1,controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  --cleanup yes -v 2>&1 | tee log_virsh1 
+  207  1574657785 brctl show
+  208  1574657831 for i in data isolated; do sudo ip l s $i down && brctl delbr $i; done
+  209  1574657834 brctl show
+  210  1574657850 ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes undercloud:1,controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  --cleanup yes -v 2>&1 | tee log_virsh1 
+  211  1574657956 ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes undercloud:1,controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  -v 2>&1 | tee log_virsh1 
+  212  1574658505 infrared tripleo-undercloud --version 13 --images-task rpm -v 2>&1 | tee log_uc1
+  213  1574671500 infrared tripleo-overcloud  --version 13 --introspect yes --tagging no --deploy no --deployment-files virt_4nets_multi_hypervisor --specific-node-ids true -v 2>&1 | tee log_oc1
+  214  1574672825 rm -f log_oc1
+  215  1574672837 infrared tripleo-overcloud  --version 13 --introspect yes --tagging no --deploy no --deployment-files virt_4nets_multi_hypervisor --specific-node-ids true -v 2>&1 | tee log_oc1
+  216  1574673398 infrared tripleo-overcloud  --version 13 --introspect no --tagging yes --deploy yes --deployment-files virt_4nets_multi_hypervisor --specific-node-ids true -v 2>&1 | tee log_deploy
+  217  1574679713 openstack overcloud delete overcloud -y
+  218  1574679741 source st
+  219  1574679770 ir ssh undercloud-0
+  220  1574684861 ls
+  221  1574684874 git status
+  222  1574685402 history > history1
+  223  1574685451 scp history1 vkommadi@10.67.116.145:~/nic-configs/
+  224  1574686237 scp infrared/common/roles/vbmc/tasks/iptables.yml vkommadi@10.67.116.145:~/infrared/
+  225  1574687852 scp infrared/common/roles/vbmc/tasks/iptables.yml vkommadi@10.67.116.30:~/infrared/
+  226  1574687917 scp infrared/common/roles/vbmc/tasks/iptables.yml vkommadi@10.67.116.30:~/checkin6/infrared/
+  227  1574688216 git status
+  228  1574688233 cd ..
+  229  1574688249 pwd
+  230  1574688252 cd infrared
+  231  1574688260 cd 
+  232  1574688262 ls
+  233  1574688270 cp -r infrared infrared_changed
+  234  1574688276 cd infrared_changed/
+  235  1574688277 ls
+  236  1574688283 rm -rf .venv
+  237  1574688286 cd ..
+  238  1574688305 tar -cvzf infrared_changed.tar.gz infrared_changed
+  239  1574688398 scp -r infrared_changed.tar.gz vkommadi@10.67.116.30:~/checkin6/
+  240  1574750270 cd infrared
+  241  1574750277 git status
+  242  1574750306 ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes undercloud:1,controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  --cleanup yes -v 
+  243  1574752031 deactivate
+  244  1574752069 pwd
+  245  1574752078 find -name deactivate
+  246  1574752099 deactivate
+  247  1574752101 pwd
+  248  1574752102 cd 
+  249  1574752111 cd /root/infrared
+  250  1574752113 deactivate
+  251  1574750451 virsh list
+  252  1574750456 brctl show
+  253  1574750520 for i in data isolated; do ip l s dev $i down && brctl delbr $i; done
+  254  1574750525 brctl show
+  255  1574764378 cd infrared
+  256  1574764382 grep -inr "generate inventory file"
+  257  1574764401 vi infrared/common/roles/inventory-update/tasks/main.yml
+  258  1574764436 ls infrared/common/roles/inventory-update/
+  259  1574764440 ls infrared/common/roles/inventory-update/templates/
+  260  1574764444 vi infrared/common/roles/inventory-update/templates/inventory.j2 
+  261  1574764716 vi /root/.infrared/.workspaces/active/hosts
+  262  1574765271 ssh stack@10.1.40.192
+  263  1574765306 vi /root/.infrared/.workspaces/active/hosts
+  264  1574775945 cat /etc/resolv.conf 
+  265  1574750256 tmux ls
+  266  1574750258 tmux a
+  267  1574752135 tmux kill 
+  268  1574752139 tmux kill osp
+  269  1574752147 tmux kill-session osp
+  270  1574752156 tmux kill-session -t osp
+  271  1574752163 virsh list
+  272  1574752178 mv infrared infrared_bkp
+  273  1574752190 mv .infrared .infrared_bkp
+  274  1574752198 git clone https://github.com/redhat-openstack/infrared.git
+  275  1574752224 cd infrared
+  276  1574752226 git fetch "https://review.gerrithub.io/redhat-openstack/infrared" refs/changes/83/461583/5 && git checkout FETCH_HEAD
+  277  1574752244 git checkout -b multi-hypervisor
+  278  1574752274 vim -d plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/network-environment.yaml.j2 ~/infrared_changed/plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/network-environment.yaml.j2
+  279  1574752331 cp ~/infrared_changed/plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/network-environment.yaml.j2 plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/network-environment.yaml.j2
+  280  1574752344 cp ~/infrared_changed/plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/three-nics-vlans/compute.yaml.j2 plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/three-nics-vlans/compute.yaml.j2
+  281  1574752357 cp ~/infrared_changed/plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/three-nics-vlans/controller.yaml.j2 plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/three-nics-vlans/controller.yaml.j2
+  282  1574752369 vim -d infrared/common/roles/vbmc/tasks/iptables.yml ~/infrared_changed/infrared/common/roles/vbmc/tasks/iptables.yml
+  283  1574752376 git status
+  284  1574752391 find -name "*multi_hyper*"
+  285  1574752421 vim -d ./plugins/virsh/defaults/topology/network/4_nets_multi_hypervisor.yml ~/.infrared_bkp/./plugins/virsh/defaults/topology/network/4_nets_multi_hypervisor.yml
+  286  1574752432 cp ~/.infrared_bkp/./plugins/virsh/defaults/topology/network/4_nets_multi_hypervisor.yml ./plugins/virsh/defaults/topology/network/4_nets_multi_hypervisor.yml
+  287  1574752473 vim -d ~/.infrared_bkp/plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/network-environment.yaml.j2 plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/network-environment.yaml.j2
+  288  1574752506 vim -d ~/.infrared_bkp/plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/three-nics-vlans/compute.yaml.j2 plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/three-nics-vlans/compute.yaml.j2
+  289  1574752518 vim -d ~/.infrared_bkp/plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/three-nics-vlans/controller.yaml.j2 plugins/tripleo-overcloud/vars/deployment/files/virt_4nets_multi_hypervisor/network/three-nics-vlans/controller.yaml.j2
+  290  1574752529 git status
+  291  1574752531 cd 
+  292  1574752532 mkdir test
+  293  1574752535 cd test/
+  294  1574752537 git clone https://github.com/redhat-openstack/infrared.git
+  295  1574752541 cd infrared/
+  296  1574752547 cd plugins/
+  297  1574752547 ls
+  298  1574752565 rm -rf virsh tripleo-overcloud tripleo-undercloud
+  299  1574752568 cd ..
+  300  1574752588 cp -r ~/.infrared_bkp/plugins/virsh .
+  301  1574752595 cp -r ~/.infrared_bkp/plugins/tripleo-undercloud/ .
+  302  1574752609 cp -r ~/.infrared_bkp/plugins/tripleo-overcloud/ .
+  303  1574752617 mv tripleo-overcloud plugins/
+  304  1574752622 mv tripleo-undercloud plugins/
+  305  1574752627 mv virsh plugins/
+  306  1574752630 git status
+  307  1574752632 pwd
+  308  1574752639 git diff plugins/tripleo-overcloud/hypervisor.yml > out
+  309  1574752641 vim out
+  310  1574752654 pwd
+  311  1574752660 ln -s ~/infrared i
+  312  1574752666 vim -d plugins/tripleo-overcloud/hypervisor.yml i/plugins/tripleo-overcloud/hypervisor.yml
+  313  1574752678 vim -d plugins/tripleo-overcloud/splitstack.yml i/plugins/tripleo-overcloud/splitstack.yml
+  314  1574752688 vim -d plugins/tripleo-overcloud/tasks/add_overcloud_host.yml i/plugins/tripleo-overcloud/tasks/add_overcloud_host.yml
+  315  1574752698 vim -d plugins/tripleo-overcloud/tasks/discover_provision_net.yml i/plugins/tripleo-overcloud/tasks/discover_provision_net.yml
+  316  1574752710 vim -d plugins/tripleo-overcloud/templates/splitstack/heat-agent.sh.j2 i/plugins/tripleo-overcloud/templates/splitstack/heat-agent.sh.j2
+  317  1574752723 vim -d plugins/tripleo-overcloud/update_inventory.yml i/plugins/tripleo-overcloud/update_inventory.yml
+  318  1574752740 vim -d plugins/virsh/defaults/topology/network/4_nets_multi_hypervisor.yml i/plugins/virsh/defaults/topology/network/4_nets_multi_hypervisor.yml
+  319  1574752745 cd 
+  320  1574752748 cd infrared
+  321  1574752750 pwd
+  322  1574752756 cd ~/test/infrared/
+  323  1574752762 rm i
+  324  1574752767 cd 
+  325  1574752769 cd infrared
+  326  1574752770 pwd
+  327  1574752976 git status
+  328  1574753107 virtualenv .venv && source .venv/bin/activate
+  329  1574753109 pip install --upgrade pip
+  330  1574753109 pip install --upgrade setuptools
+  331  1574753110 pip install .
+  332  1574753257 infrared plugin add all
+  333  1574758062 ls
+  334  1574758067 ls ~/.infrared
+  335  1574758071 ls ~/.infrared/
+  336  1574758081 ir workspace
+  337  1574758085 ir workspace create
+  338  1574758154 ir workspace create scale
+  339  1574758164 ir workspace list
+  340  1574758192 ir workspace checkout active
+  341  1574758197 ir workspace checkout scale
+  342  1574758212 ir workspace list
+  343  1574758226 ls ~/.infrared/.workspaces/
+  344  1574758230 ls ~/.infrared/.workspaces/scale/
+  345  1574758241 vi ~/.infrared/.workspaces/active/hosts
+  346  1574758266 ls ~/.infrared/.workspaces/active/
+  347  1574758272 touch ~/.infrared/.workspaces/active/hosts-prov
+  348  1574758279 cd ~/.infrared/.workspaces/active/
+  349  1574758288 ln -s hosts-prov hosts
+  350  1574758291 ls
+  351  1574758292 ls -al
+  352  1574758297 cd ~/infrared
+  353  1574758367 vi ~/.infrared/.workspaces/active/hosts-prov
+  354  1574759211 cp ~/.infrared/.workspaces/active/hosts-prov ~/
+  355  1574759227 git status
+  356  1574759323 vi myshell.sh
+  357  1574759384 cat myshell.sh
+  358  1574759408 ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  -v 2>&1 | tee log_virsh1
+  359  1574759570 vi /root/.infrared/.workspaces/scale/local_hosts
+  360  1574759583 ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  -v 2>&1 | tee log_virsh2
+  361  1574759839 ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  -v --cleanup yes
+  362  1574760060 ir virsh --host-address 10.1.41.194 --host-key /root/.ssh/id_rsa --topology-nodes controller:1 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  -v --topology-extend yes 2>&1 | tee log_virsh3
+  363  1574760138 virsh list
+  364  1574760141 virsh list -a
+  365  1574760300 ir virsh --host-address [10.1.41.194] --host-key /root/.ssh/id_rsa --topology-nodes controller:1 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  -v --topology-extend yes 2>&1 | tee log_virsh3
+  366  1574760364 ir virsh --host-address 10.1.41.194 --host-key /root/.ssh/id_rsa --topology-nodes controller:1 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  -v  2>&1 | tee log_virsh3_1
+  367  1574760519 ir virsh --host-address 10.1.41.194 --host-key /root/.ssh/id_rsa --topology-nodes controller:1 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  -v  --cleanup yes
+  368  1574760672 ir workspace create scale
+  369  1574760679 ir workspace checkout scale
+  370  1574760871 ir virsh --host-address 10.1.41.194 --host-key /root/.ssh/id_rsa --topology-nodes controller:1 --host-memory-overcommit True  -v 2>&1 | tee log1
+  371  1574761032 ir virsh --host-address 10.1.41.194 --host-key /root/.ssh/id_rsa --topology-nodes controller:1 --host-memory-overcommit True  -v 2>&1 | tee log2
+  372  1574761049 ir virsh --host-address 10.1.41.194 --host-key /root/.ssh/id_rsa --topology-nodes controller:1 --host-memory-overcommit True --topology-extend yes -v 2>&1 | tee log2
+  373  1574761806 ir virsh --host-address 10.1.41.194 --host-key /root/.ssh/id_rsa --topology-nodes controller:1 --host-memory-overcommit True  -v 2>&1 | tee log3
+  374  1574762234 vim log3
+  375  1574762300 ir virsh --host-address 10.1.41.194 --host-key /root/.ssh/id_rsa --topology-nodes controller:1 --host-memory-overcommit True  -v 2>&1 | tee log3
+  376  1574762443 virsh list
+  377  1574762713 ir virsh --host-address 10.1.41.194 --host-key /root/.ssh/id_rsa --topology-nodes controller:1 --host-memory-overcommit True --cleanup yes
+  378  1574762861 ls *.sh
+  379  1574762864 cat myshell.sh 
+  380  1574762908 ir virsh --host-address 10.1.41.194 --host-address 10.1.41.134 --host-key /root/.ssh/id_rsa --topology-nodes controller:1,compute:2 --topology-network 4_nets_multi_hypervisor --host-memory-overcommit True  -v 2>&1 | tee log_virsh1 
+  381  1574763121 virsh list
+  382  1574763225 infrared tripleo-undercloud --version 13 --images-task rpm -v 2>&1 | tee log_uc1
+  383  1574764034 pwd
+  384  1574764053 ls ~/.infrared/.workspaces/
+  385  1574764074 cp ~/.infrared/.workspaces/active/hosts-prov ~/.infrared/.workspaces/active/hosts-prov_final_imp
+  386  1574764079 vi ~/.infrared/.workspaces/active/hosts
+  387  1574764112 infrared tripleo-undercloud --version 13 --images-task rpm -v 2>&1 | tee log_uc1
+  388  1574764783 infrared tripleo-undercloud --version 13 --images-task rpm -v 2>&1 | tee log_uc2
+  389  1574764812 infrared tripleo-undercloud --version 13 --images-task rpm -vvvv 2>&1 | tee log_uc2
+  390  1574765825 infrared tripleo-undercloud --version 13 --images-task rpm -v --config-options DEFAULT.local_interface=enp94s0f0 2>&1 | tee log_uc3
+  391  1574769798 vi ~/undercloud.conf
+  392  1574769999 infrared tripleo-undercloud --version 13 --images-task rpm -v --config-file ~/undercloud.conf 2>&1 | tee log_uc4
+  393  1574775991 vi ~/undercloud.conf 
+  394  1574776055 infrared tripleo-undercloud --version 13 --images-task rpm -v --config-file ~/undercloud.conf 2>&1 | tee log_uc5
+  395  1574776306 vi ~/undercloud.conf
+  396  1574776327 infrared tripleo-undercloud --version 13 --images-task rpm -v --config-file ~/undercloud.conf 2>&1 | tee log_uc6
+  397  1574779215 pwd
+  398  1574779223 cat ~/undercloud.conf 
+  399  1574746840 ip a
+  400  1574750405 vi ~/.ssh/authorized_keys 
+  401  1574750530 virsh list
+  402  1574750531 for i in data isolated; do ip l s dev $i down && brctl delbr $i; done
+  403  1574750538 brctl show
+  404  1574750600 vi ~/.infrared/.workspaces/active/hosts
+  405  1574751683 cd infrared
+  406  1574751687 source .venv/bin/activate
+  407  1574751694 ir virsh --help
+  408  1574751947 git status
+  409  1574751959 pwd
+  410  1574752085 deactivate 
+  411  1574752091 cd -
+  412  1574759615 ls ~/.infrared/.workspaces/
+  413  1574759618 ls ~/.infrared/.workspaces/scale/
+  414  1574759621 ls -al ~/.infrared/.workspaces/scale/
+  415  1574759638 tail -f ~/.infrared/.workspaces/scale/hosts-prov 
+  416  1574759686 tail -f ~/.infrared/.workspaces/scale/hosts
+  417  1574759725 vi hosts-prov 
+  418  1574759954 for i in data isolated; do ip l s dev $i down && brctl delbr $i; done
+  419  1574759977 ls
+  420  1574759981 ls ~/.infrared/.workspaces/scale/
+  421  1574759997 vi ~/.infrared/.workspaces/scale/hosts-prov 
+  422  1574760023 ip a
+  423  1574760161 vi ~/.infrared/.workspaces/scale/hosts-prov 
+  424  1574760186 vi ~/.infrared/.workspaces/scale/hosts
+  425  1574760249 cd infrared
+  426  1574760254 grep -inr "did not meet host_list requirements" .
+  427  1574760319 vim plugins/virsh/plugin.spec 
+  428  1574760440 vi ~/.infrared/.workspaces/scale/hosts
+  429  1574760492 ls ~/.infrared/.workspaces/scale/
+  430  1574760501 cp ~/.infrared/.workspaces/scale/hosts .
+  431  1574760557 for i in data isolated; do ip l s dev $i down && brctl delbr $i; done
+  432  1574760591 vi ~/.infrared/.workspaces/scale/hosts
+  433  1574760596 vi ~/.infrared/.workspaces/scale/hosts-prov 
+  434  1574760608 ln -s ~/.infrared/.workspaces/scale/
+  435  1574760611 ln -s ~/.infrared/.workspaces/scale
+  436  1574760628 ls -s ~/.infrared/.workspaces/
+  437  1574760634 ls -s ~/.infrared/.workspaces/scale/
+  438  1574760649 rm -rf ~/.infrared/.workspaces
+  439  1574760656 ls -al ~/.infrared
+  440  1574760687 ls ~/.infrared/.workspaces/scale/
+  441  1574760697 cp ~/hosts-prov ~/.infrared/.workspaces/scale/hosts-prov
+  442  1574760704 cd ~/.infrared/.workspaces/scale/
+  443  1574760713 ln -s hosts-prov hosts
+  444  1574760714 pwd
+  445  1574760717 ls
+  446  1574760722 cd ~/infrared
+  447  1574760743 vi ~/.infrared/.workspaces/scale/hosts-prov
+  448  1574760891 vi /root/.infrared/plugins/virsh/pre.yml
+  449  1574760961 vi ~/.infrared/.workspaces/scale/hosts-prov
+  450  1574760994 cp ~/.infrared/.workspaces/scale/hosts-prov ~/hosts-prov1
+  451  1574760997 vi ~/.infrared/.workspaces/scale/hosts-prov
+  452  1574761027 cp ~/.infrared/.workspaces/scale/hosts-prov ~/hosts-prov2
+  453  1574761071 vi ~/.infrared/.workspaces/scale/hosts-prov
+  454  1574761190 ssh root@10.1.40.192
+  455  1574761340 cat ~/.infrared/.workspaces/scale/hosts-prov
+  456  1574761354 vi ~/.infrared/.workspaces/scale/hosts-prov
+  457  1574761457 ls ~/.infrared/.workspaces/scale/
+  458  1574761468 cp ~/.ssh/id_rsa* ~/.infrared/.workspaces/scale/
+  459  1574761777 ls ~/.infrared/.workspaces/scale/
+  460  1574761784 vi ~/.infrared/.workspaces/scale/hosts-prov 
+  461  1574761836 ls /root/.infrared/.workspaces/scale/local_hosts
+  462  1574761846 vi /root/.infrared/.workspaces/scale/local_hosts
+  463  1574761858 ls /root/.infrared/.workspaces/scale/
+  464  1574761873 vi /root/.infrared/.workspaces/scale/local_hosts
+  465  1574761962 virsh net-list
+  466  1574761966 ip a
+  467  1574761986 sudo ip l d enp94s0f0.200
+  468  1574762126 grep -inr "Check if IPv6 enabled on hos"
+  469  1574762143 vim plugins/virsh/provision_networks.yml
+  470  1574762190 find -name default
+  471  1574762208 find -name "*multi_hyper*"
+  472  1574762217 ls ./plugins/virsh/defaults/topology/network/
+  473  1574762242 vi ./plugins/virsh/defaults/topology/network/3_nets.yml 
+  474  1574762274 cp ./plugins/virsh/defaults/topology/network/3_nets.yml /root/.infrared/plugins/virsh/defaults/topology/network/3_nets.yml
+  475  1574762283 virsh net-list
+  476  1574762287 bctl show
+  477  1574762291 brctl show
+  478  1574762294 virsh list
+  479  1574762453 vi ~/.infrared/.workspaces/scale/hosts-prov
+  480  1574762477 ls ~/.infrared/.workspaces/scale/
+  481  1574762483 ls -al ~/.infrared/.workspaces/scale/
+  482  1574762496 vi ~/.infrared/.workspaces/scale/.registry 
+  483  1574762509 vi ~/.infrared/.workspaces/scale/hosts
+  484  1574762822 virsh list
+  485  1574762906 rm -rf ~/.infrared/.workspaces
+  486  1574763143 vi ~/.infrared/.workspaces/active/hosts
+  487  1574763511 cp ~/.infrared/.workspaces/active/hosts ~/.infrared/.workspaces/active/hosts_bkp
+  488  1574763513 vi ~/.infrared/.workspaces/active/hosts
+  489  1574763558 grep -inr "set undercloud_hypervisors" .
+  490  1574763564 vi ./plugins/tripleo-undercloud/update_inventory.yml
+  491  1574763587 grep -inr update_inventory.yml .
+  492  1574763595 vi ./plugins/tripleo-undercloud/main.yml
+  493  1574763607 vi ./plugins/tripleo-undercloud/update_inventory.yml
+  494  1574763836 grep -inr undercloud_hypervisors .
+  495  1574763860 vi ./plugins/tripleo-undercloud/hypervisor.yml
+  496  1574764205 vi ~/.infrared/.workspaces/active/hosts
+  497  1574764559 grep -inr "Update hosts user" .
+  498  1574764577 vi ./plugins/tripleo-undercloud/create_user.yml
+  499  1574764857 vi /root/infrared/.venv/lib/python2.7/site-packages/infrared/common/roles/inventory-update/tasks/main.yml
+  500  1574765030 grep -inr omit_hosts .
+  501  1574765053 vi ./infrared/common/roles/inventory-update/README.rst
+  502  1574769850 ip a
+  503  1574775177 pwd
+  504  1574775190 vi ~/.infrared/.workspaces/active/hosts
+  505  1574775249  ssh stack@f05-h29-000-1029p.rdu2.scalelab.redhat.com
+  506  1574827577 cd infrared
+  507  1574827611 virsh list
+  508  1574827676 pwd
+  509  1574827693 vi ~/.infrared/.workspaces/active/hosts
+  510  1574827708 cp ~/.infrared/.workspaces/active/hosts ~/hosts_undercloud
+  511  1574827729 vi ~/hosts-prov2
+  512  1574827732 vi ~/hosts-prov1
+  513  1574827735 vi ~/hosts-prov
+  514  1574827741 pwd
+  515  1574827750 ls ~/.infrared/.workspaces/active/
+  516  1574827760 cp ~/.infrared/.workspaces/active/hosts-prov_final_imp ~/
+  517  1574827770 vi ~/.infrared/.workspaces/active/hosts-prov_final_imp
+  518  1574833859 cp ~/.infrared/.workspaces/active/hosts-prov_final_imp  ~/.infrared/.workspaces/active/hosts-prov
+  519  1574833873 ls -a ~/.infrared/.workspaces/active/
+  520  1574833884 rm -f ~/.infrared/.workspaces/active/hosts
+  521  1574833888 cd ~/.infrared/.workspaces/active/
+  522  1574833889 ls
+  523  1574833901 ln -s hosts-prov hosts
+  524  1574833905 vi hosts-prov
+  525  1574833911 ls -a
+  526  1574833918 ls
+  527  1574833922 vi hosts
+  528  1574833929 ls -al
+  529  1574833933 cd 
+  530  1574833936 cd infrared
+  531  1574834196 vi myshell.sh 
+  532  1574835297 infrared tripleo-overcloud  --version 13 --introspect yes --tagging yes --deploy no --deployment-files virt_4nets_multi_hypervisor --specific-node-ids true -v --hybrid ~/hybrid_nodes.json -e provison_virsh_network_name=br-ctlplane 2>&1 | tee log_intro
+  533  1574835306 source .venv/bin/activate
+  534  1574835308 infrared tripleo-overcloud  --version 13 --introspect yes --tagging yes --deploy no --deployment-files virt_4nets_multi_hypervisor --specific-node-ids true -v --hybrid ~/hybrid_nodes.json -e provison_virsh_network_name=br-ctlplane 2>&1 | tee log_intro
+  535  1574835884 infrared tripleo-overcloud  --version 13 --introspect yes --tagging yes --deploy no --deployment-files virt_4nets_multi_hypervisor --specific-node-ids true -v --hybrid ~/hybrid_nodes.json  2>&1 | tee log_intro1
+  536  1574836081 echo $(/sbin/ip -4 -o addr list data | awk '{print $4}')
+  537  1574836090 ip a
+  538  1574836435 sudo ip a a 192.168.24.254/24 brd 192.168.24.255 dev data
+  539  1574836469 infrared tripleo-overcloud  --version 13 --introspect yes --tagging yes --deploy no --deployment-files virt_4nets_multi_hypervisor --specific-node-ids true -v --hybrid ~/hybrid_nodes.json  2>&1 | tee log_intro2
+  540  1574839614 infrared tripleo-overcloud  --version 13 --introspect yes --tagging yes --deploy no --deployment-files virt_4nets_multi_hypervisor --specific-node-ids true -v --hybrid ~/hybrid_nodes.json  --vbmc-host undercloud 2>&1 | tee log_intro3
+  541  1574842653 infrared tripleo-overcloud  --version 13 --introspect no --tagging no --deploy yes --deployment-files virt_4nets_multi_hypervisor --specific-node-ids true -v --hybrid ~/hybrid_nodes.json  --vbmc-host undercloud  --compute-nodes 2 --controller-nodes 1 2>&1 | tee log_oc1
+  542  1574849365 pwd
+  543  1574849773 infrared tripleo-overcloud  --version 13 --introspect no --tagging no --deploy yes --deployment-files virt_4nets_multi_hypervisor --specific-node-ids true -v --hybrid ~/hybrid_nodes.json  --vbmc-host undercloud  --compute-nodes 2 --controller-nodes 1 2>&1 | tee log_oc2
+  544  1574852594 infrared tripleo-overcloud  --version 13 --introspect no --tagging no --deploy yes --deployment-files virt_4nets_multi_hypervisor --specific-node-ids true -v --hybrid ~/hybrid_nodes.json  --vbmc-host undercloud  --compute-nodes 2 --controller-nodes 1 2>&1 | tee log_oc3
+  545  1574860827 history > ~/history2
